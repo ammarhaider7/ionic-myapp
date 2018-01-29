@@ -25,6 +25,7 @@ export class HomePage {
   imageEl: any;
   showSpinner: boolean = false;
   errorMessage: string;
+  ocrText: string;
 
   constructor(
     public platform: Platform,
@@ -51,6 +52,13 @@ export class HomePage {
         this.pluggedInConjunction = this.isPlugged ? '' : 'not';
       }
     )
+  }
+
+  analyse() {
+    (<any>window).OCRAD(this.ocrImage.nativeElement, text => {
+      console.log(text);
+      this.ocrText = text;
+    });
   }
 
   analyseImage = () => {
