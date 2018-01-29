@@ -16,7 +16,7 @@
     <button ion-button (click)="getBatteryStatus()">Get battery status</button>
   </div>
   <div margin-top *ngIf="!!batteryLevel">
-    <p>The battery level is {{batteryLevel}} and it is {{!isPlugged && 'not'}} plugged in.</p>
+    <p>The battery level is at {{batteryLevel}}% and the device is {{pluggedInConjunction}} plugged in.</p>
   </div>
   <div margin-top *ngIf="!!base64Image">
     <img [src]="base64Image" />

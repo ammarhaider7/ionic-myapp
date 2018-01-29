@@ -18,6 +18,7 @@ export class HomePage {
   base64Image: string;
   batteryLevel: number;
   isPlugged: boolean;
+  pluggedInConjunction: string;
 
   constructor(
     public platform: Platform,
@@ -41,6 +42,7 @@ export class HomePage {
       (status: BatteryStatusResponse) => {
         this.batteryLevel = status.level;
         this.isPlugged = status.isPlugged;
+        this.pluggedInConjunction = this.isPlugged ? '' : 'not';
       }
     )
   }
