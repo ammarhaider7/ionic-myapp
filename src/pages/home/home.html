@@ -8,13 +8,16 @@
 
 <ion-content padding>
   The world is your oyster, Ammar.
-  <p *ngIf="ocrText" >
-    {{ocrText}}
-  </p>
+  <ul *ngFor="let o of ocrOb">
+    <li>{{o}}: {{ocrOb[o]}}</li>
+  </ul>
   <div margin-top>
     <button ion-button (click)="addImage()">Add image</button>
     <button ion-button (click)="getBatteryStatus()">Get battery status</button>
-    <button ion-button *ngIf="!!base64Image" (click)="analyseImage(ocrImage.nativeElement)">Analyse image</button>
+    <button ion-button *ngIf="!!base64Image" (click)="analyseImage(ocrImage.nativeElement)">
+      Analyse image
+      <ion-spinner *ngIf="showSpinner"></ion-spinner>
+    </button>
   </div>
   <div margin-top *ngIf="!!batteryLevel">
     <p>The battery level is at {{batteryLevel}}% and the device is {{pluggedInConjunction}} plugged in.</p>

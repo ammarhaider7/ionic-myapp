@@ -21,11 +21,11 @@ export class HomePage {
   batteryLevel: number;
   isPlugged: boolean;
   pluggedInConjunction: string;
-  ocrText: string;
+  ocrOb: any;
   imageEl: any;
+  showSpinner: boolean = false;
 
   constructor(
-    private elementRef: ElementRef,
     public platform: Platform,
     public navCtrl: NavController,
     private camera: Camera,
@@ -53,9 +53,11 @@ export class HomePage {
   }
 
   analyseImage = (myImage) => {
+    this.showSpinner = true;
     Tesseract.recognize(myImage)
     .then((result) => {
-      this.ocrText = result.text;
+      this.showSpinner = false;
+      this.ocrOb = result;
     });
   }
 
