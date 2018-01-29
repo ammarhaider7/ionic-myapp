@@ -54,9 +54,9 @@ export class HomePage {
   }
 
   analyseImage = () => {
-    const image = this.ocrImage.nativeElement.src;
+    // const image = this.ocrImage.nativeElement.src;
     this.showSpinner = true;
-    Tesseract.recognize(image)
+    Tesseract.recognize(this.base64Image)
     .then((result) => {
       this.showSpinner = false;
       console.log(result);
