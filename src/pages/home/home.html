@@ -8,8 +8,9 @@
 
 <ion-content padding>
   The world is your oyster, Ammar.
-  <ul *ngFor="let o of ocrOb">
-    <li>{{o}}: {{ocrOb[o]}}</li>
+  <p *ngIf="errorMessage">errorMessage</p> 
+  <ul>
+    <li *ngFor="let o of ocrOb">{{o}}: {{ocrOb[o]}}</li>
   </ul>
   <div margin-top>
     <button ion-button (click)="addImage()">Add image</button>

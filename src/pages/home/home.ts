@@ -24,6 +24,7 @@ export class HomePage {
   ocrOb: any;
   imageEl: any;
   showSpinner: boolean = false;
+  errorMessage: string;
 
   constructor(
     public platform: Platform,
@@ -58,6 +59,9 @@ export class HomePage {
     .then((result) => {
       this.showSpinner = false;
       this.ocrOb = result;
+    })
+    .catch(err => {
+      this.errorMessage = err;
     });
   }
 
