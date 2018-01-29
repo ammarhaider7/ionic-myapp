@@ -11,5 +11,14 @@
   <p>
     If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
   </p>
-  <img [src]="base64Image" />
+  <div>
+    <button ion-button (click)="addImage()">Add image</button>
+    <button ion-button (click)="getBatteryStatus()">Get battery status</button>
+  </div>
+  <div margin-top *ngIf="!!batteryLevel">
+    <p>The battery level is {{batteryLevel}} and it is {{!isPlugged && 'not'}} plugged in.</p>
+  </div>
+  <div margin-top *ngIf="!!base64Image">
+    <img [src]="base64Image" />
+  </div>
 </ion-content>

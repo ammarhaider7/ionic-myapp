@@ -1,3 +1,4 @@
+import { BatteryStatus, BatteryStatusResponse } from '@ionic-native/battery-status';
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
@@ -15,17 +16,33 @@ export class HomePage {
     mediaType: this.camera.MediaType.PICTURE
   }
   base64Image: string;
+  batteryLevel: number;
+  isPlugged: boolean;
 
-  constructor(platform: Platform, public navCtrl: NavController, private camera: Camera) {
-    platform.ready().then(() => {
-      this.camera.getPicture(this.options).then((imageData) => {
-        // imageData is either a base64 encoded string or a file URI
-        // If it's base64:
-        this.base64Image = `data:image/jpeg;base64,${imageData}`;
-       }, (err) => {
-        // Handle error
-       });
-    });
+  constructor(
+    public platform: Platform,
+    public navCtrl: NavController,
+    private camera: Camera,
+    private batteryStatus: BatteryStatus) {
+  }
+
+  addImage = () => {
+    this.camera.getPicture(this.options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64:
+      this.base64Image = `data:image/jpeg;base64,${imageData}`;
+     }, (err) => {
+      // Handle error
+     });
+  }
+
+  getBatteryStatus = () => {
+    this.batteryStatus.onChange().subscribe(
+      (status: BatteryStatusResponse) => {
+        this.batteryLevel = status.level;
+        this.isPlugged = status.isPlugged;
+      }
+    )
   }
 
 }
