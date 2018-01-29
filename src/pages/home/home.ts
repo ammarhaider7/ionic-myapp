@@ -52,7 +52,7 @@ export class HomePage {
   analyseImage = (myImage) => {
     Tesseract.recognize(myImage)
     .then((result) => {
-      this.ocrText = result;
+      this.ocrText = result.text;
     });
   }
 
