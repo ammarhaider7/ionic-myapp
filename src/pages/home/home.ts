@@ -1,5 +1,5 @@
 import { BatteryStatus, BatteryStatusResponse } from '@ionic-native/battery-status';
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import Tesseract from 'tesseract.js'
@@ -10,6 +10,7 @@ import Tesseract from 'tesseract.js'
 })
 export class HomePage {
 
+  @ViewChild('ocrImage') ocrImage: ElementRef;
   options: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.DATA_URL,
@@ -21,8 +22,10 @@ export class HomePage {
   isPlugged: boolean;
   pluggedInConjunction: string;
   ocrText: string;
+  imageEl: any;
 
   constructor(
+    private elementRef: ElementRef,
     public platform: Platform,
     public navCtrl: NavController,
     private camera: Camera,

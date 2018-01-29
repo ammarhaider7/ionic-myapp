@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Ionic native tests
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,15 +11,15 @@
   <p *ngIf="ocrText" >
     {{ocrText}}
   </p>
-  <div>
+  <div margin-top>
     <button ion-button (click)="addImage()">Add image</button>
     <button ion-button (click)="getBatteryStatus()">Get battery status</button>
-    <button ion-button *ngIf="!!base64Image" (click)="analyseImage(base64Image)">Analyse image</button>
+    <button ion-button *ngIf="!!base64Image" (click)="analyseImage(ocrImage.nativeElement)">Analyse image</button>
   </div>
   <div margin-top *ngIf="!!batteryLevel">
     <p>The battery level is at {{batteryLevel}}% and the device is {{pluggedInConjunction}} plugged in.</p>
   </div>
   <div margin-top *ngIf="!!base64Image">
-    <img [src]="base64Image" />
+    <img #ocrImage [src]="base64Image" />
   </div>
 </ion-content>
