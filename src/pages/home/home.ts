@@ -53,11 +53,13 @@ export class HomePage {
     )
   }
 
-  analyseImage = (myImage) => {
+  analyseImage = () => {
+    const image = this.ocrImage.nativeElement;
     this.showSpinner = true;
-    Tesseract.recognize(myImage)
+    Tesseract.recognize(image)
     .then((result) => {
       this.showSpinner = false;
+      console.log(result);
       this.ocrOb = result;
     })
     .catch(err => {
