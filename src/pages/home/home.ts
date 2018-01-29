@@ -55,7 +55,9 @@ export class HomePage {
   }
 
   analyse() {
+    this.showSpinner = true;
     (<any>window).OCRAD(this.ocrImage.nativeElement, text => {
+      this.showSpinner = false;
       console.log(text);
       this.ocrText = text;
     });
