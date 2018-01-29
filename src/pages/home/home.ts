@@ -2,6 +2,7 @@ import { BatteryStatus, BatteryStatusResponse } from '@ionic-native/battery-stat
 import { Component } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import Tesseract from 'tesseract.js'
 
 @Component({
   selector: 'page-home',
@@ -19,6 +20,7 @@ export class HomePage {
   batteryLevel: number;
   isPlugged: boolean;
   pluggedInConjunction: string;
+  ocrText: string;
 
   constructor(
     public platform: Platform,
@@ -45,6 +47,13 @@ export class HomePage {
         this.pluggedInConjunction = this.isPlugged ? '' : 'not';
       }
     )
+  }
+
+  analyseImage = (myImage) => {
+    Tesseract.recognize(myImage)
+    .then((result) => {
+      this.ocrText = result;
+    });
   }
 
 }
