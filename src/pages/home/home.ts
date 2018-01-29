@@ -62,6 +62,7 @@ export class HomePage {
     })
     .catch(err => {
       this.errorMessage = err;
+      this.showSpinner = false;
     });
   }
 
