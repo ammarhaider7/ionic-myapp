@@ -20,21 +20,16 @@ export class MyApp {
     private network: Network,
     private alertCtrl: AlertController,
     splashScreen: SplashScreen) {
-    this.checkConnection();
     platform.ready().then(() => {
       splashScreen.show();
+      this.listenToNetworkConnect();
+      this.listenToNetworkDisconnect();
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       // Hide splashscreen after 1 second to test splash screen
       setTimeout(() => splashScreen.hide(), 2000);
     });
-  }
-
-  checkConnection() {
-
-    console.log(this.network.type);
-
   }
 
   listenToNetworkConnect() {

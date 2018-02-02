@@ -2,7 +2,6 @@ import { BatteryStatus, BatteryStatusResponse } from '@ionic-native/battery-stat
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import Tesseract from 'tesseract.js'
 
 @Component({
   selector: 'page-home',
@@ -60,21 +59,6 @@ export class HomePage {
       this.showSpinner = false;
       console.log(text);
       this.ocrText = text;
-    });
-  }
-
-  analyseImage = () => {
-    // const image = this.ocrImage.nativeElement.src;
-    this.showSpinner = true;
-    Tesseract.recognize(this.base64Image)
-    .then((result) => {
-      this.showSpinner = false;
-      console.log(result);
-      this.ocrOb = result;
-    })
-    .catch(err => {
-      this.errorMessage = err;
-      this.showSpinner = false;
     });
   }
 
