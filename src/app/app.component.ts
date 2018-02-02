@@ -12,7 +12,7 @@ import { HomePage } from '../pages/home/home';
 })
 export class MyApp {
 
-  rootPage:any = HomePage;
+  rootPage: any = HomePage;
 
   constructor(
     platform: Platform,
@@ -22,6 +22,7 @@ export class MyApp {
     splashScreen: SplashScreen) {
     platform.ready().then(() => {
       splashScreen.show();
+      this.reportConnectivity();
       this.listenToNetworkConnect();
       this.listenToNetworkDisconnect();
       // Okay, so the platform is ready and our plugins are available.
@@ -30,6 +31,10 @@ export class MyApp {
       // Hide splashscreen after 1 second to test splash screen
       setTimeout(() => splashScreen.hide(), 2000);
     });
+  }
+
+  reportConnectivity() {
+    this.presentAlert('Network status', this.network.type);
   }
 
   listenToNetworkConnect() {
