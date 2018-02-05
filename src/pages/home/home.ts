@@ -2,6 +2,8 @@ import { BatteryStatus, BatteryStatusResponse } from '@ionic-native/battery-stat
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { SignaturePad } from 'angular2-signaturepad/signature-pad';
+import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-home',
@@ -10,6 +12,14 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class HomePage {
 
   @ViewChild('ocrImage') ocrImage: ElementRef;
+  @ViewChild(SignaturePad) signaturePad: SignaturePad;
+  private signaturePadOptions: Object = { // Check out https://github.com/szimek/signature_pad
+    minWidth: 2,
+    canvasWidth: 400,
+    canvasHeight: 200,
+    backgroundColor: '#f6fbff',
+    penColor: '#666a73'
+  };
   options: CameraOptions = {
     quality: 100,
     destinationType: this.camera.DestinationType.DATA_URL,
@@ -25,11 +35,14 @@ export class HomePage {
   showSpinner: boolean = false;
   errorMessage: string;
   ocrText: string;
+  signature: string;
+  isDrawing: boolean = false;
 
   constructor(
     public platform: Platform,
     public navCtrl: NavController,
     private camera: Camera,
+    private alertCtrl: AlertController,
     private batteryStatus: BatteryStatus) {
   }
 
@@ -53,6 +66,14 @@ export class HomePage {
     )
   }
 
+  drawComplete() {
+    this.isDrawing = false;
+  }
+ 
+  drawStart() {
+    this.isDrawing = true;
+  }
+
   analyse() {
     this.showSpinner = true;
     (<any>window).OCRAD(this.ocrImage.nativeElement, text => {
@@ -60,6 +81,19 @@ export class HomePage {
       console.log(text);
       this.ocrText = text;
     });
+  }
+
+  savePad() {
+    this.signature = this.signaturePad.toDataURL();
+    this.signaturePad.clear();
+    const alert = this.alertCtrl.create({
+      title: 'New Signature saved.'
+    });
+    alert.present();
+  }
+ 
+  clearPad() {
+    this.signaturePad.clear();
   }
 
 }
