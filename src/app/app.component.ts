@@ -33,6 +33,7 @@ export class MyApp {
       // Hide splashscreen after 1 second to test splash screen
       // set to landscape
       this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      
       setTimeout(() => splashScreen.hide(), 2000);
     });
   }
