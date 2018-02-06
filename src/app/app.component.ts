@@ -31,8 +31,9 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       // Hide splashscreen after 1 second to test splash screen
-      // set to landscape
-      if (this.platform.is('ios')) this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      // set to landscape only when running on cordova
+      console.log(this.platform.is('cordova '));
+      if (this.platform.is('cordova ')) this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       
       setTimeout(() => splashScreen.hide(), 2000);
     });
