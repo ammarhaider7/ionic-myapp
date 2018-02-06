@@ -16,12 +16,12 @@ export class MyApp {
   rootPage: any = HomePage;
 
   constructor(
-    platform: Platform,
-    statusBar: StatusBar,
+    private platform: Platform,
+    private statusBar: StatusBar,
     private network: Network,
     private alertCtrl: AlertController,
     private screenOrientation: ScreenOrientation,
-    splashScreen: SplashScreen) {
+    private splashScreen: SplashScreen) {
     platform.ready().then(() => {
       splashScreen.show();
       this.reportConnectivity();
@@ -32,7 +32,7 @@ export class MyApp {
       statusBar.styleDefault();
       // Hide splashscreen after 1 second to test splash screen
       // set to landscape
-      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
+      if (this.platform.is('ios')) this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       
       setTimeout(() => splashScreen.hide(), 2000);
     });
