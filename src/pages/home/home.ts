@@ -4,6 +4,7 @@ import { NavController, Platform } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { SignaturePad } from 'angular2-signaturepad/signature-pad';
 import { AlertController } from 'ionic-angular';
+import { MediaCapture, MediaFile, CaptureAudioOptions, CaptureError } from '@ionic-native/media-capture';
 
 @Component({
   selector: 'page-home',
@@ -43,7 +44,8 @@ export class HomePage {
     public navCtrl: NavController,
     private camera: Camera,
     private alertCtrl: AlertController,
-    private batteryStatus: BatteryStatus) {
+    private batteryStatus: BatteryStatus,
+    private mediaCapture: MediaCapture) {
   }
 
   addImage = () => {
@@ -78,16 +80,36 @@ export class HomePage {
     this.showSpinner = true;
     (<any>window).OCRAD(this.ocrImage.nativeElement, text => {
       this.showSpinner = false;
-      console.log(text);
       this.ocrText = text;
     });
+  }
+  
+  captureAudio() {
+    this.mediaCapture.captureAudio()
+      .catch((err: CaptureError) => this.alertCtrl.create({
+        title: 'Error capturing audio',
+        subTitle: err.code,
+        buttons: ['Dismiss']
+      }).present())
+      .then((audioFile: MediaFile) => {
+        console.log(audioFile);
+        if (typeof audioFile.size !== 'undefined') {
+          this.alertCtrl.create({
+            title: 'Successfully recorded audio',
+            subTitle: `Size: ${audioFile.size}, name: ${audioFile.name}, type: ${audioFile.type}`,
+            buttons: ['Dismiss']
+          })
+          .present();
+        }
+      });
   }
 
   savePad() {
     this.signature = this.signaturePad.toDataURL();
     this.signaturePad.clear();
     const alert = this.alertCtrl.create({
-      title: 'New Signature saved.'
+      title: 'New Signature saved.',
+      buttons: ['Dismiss']
     });
     alert.present();
   }
