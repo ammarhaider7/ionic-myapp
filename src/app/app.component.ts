@@ -4,6 +4,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
 import { AlertController } from 'ionic-angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { HomePage } from '../pages/home/home';
 
@@ -19,6 +20,7 @@ export class MyApp {
     statusBar: StatusBar,
     private network: Network,
     private alertCtrl: AlertController,
+    private screenOrientation: ScreenOrientation,
     splashScreen: SplashScreen) {
     platform.ready().then(() => {
       splashScreen.show();
@@ -29,6 +31,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       // Hide splashscreen after 1 second to test splash screen
+      // set to landscape
+      this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
       setTimeout(() => splashScreen.hide(), 2000);
     });
   }
