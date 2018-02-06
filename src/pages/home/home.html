@@ -22,9 +22,6 @@
   <div margin-top *ngIf="!!batteryLevel">
     <p>The battery level is at {{batteryLevel}}% and the device is {{pluggedInConjunction}} plugged in.</p>
   </div>
-  <div>
-    <button ion-button (click)="captureAudio()">Capture audio</button>
-  </div>
   <div margin-top *ngIf="!!base64Image">
   <!-- <div> -->
     <img #ocrImage [src]="base64Image" />

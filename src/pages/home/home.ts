@@ -83,26 +83,6 @@ export class HomePage {
       this.ocrText = text;
     });
   }
-  
-  captureAudio() {
-    this.mediaCapture.captureAudio()
-      .catch((err: CaptureError) => this.alertCtrl.create({
-        title: 'Error capturing audio',
-        subTitle: err.code,
-        buttons: ['Dismiss']
-      }).present())
-      .then((audioFile: MediaFile) => {
-        console.log(audioFile);
-        if (typeof audioFile.size !== 'undefined') {
-          this.alertCtrl.create({
-            title: 'Successfully recorded audio',
-            subTitle: `Size: ${audioFile.size}, name: ${audioFile.name}, type: ${audioFile.type}`,
-            buttons: ['Dismiss']
-          })
-          .present();
-        }
-      });
-  }
 
   savePad() {
     this.signature = this.signaturePad.toDataURL();
